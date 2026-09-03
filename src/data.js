@@ -1,0 +1,166 @@
+export const LEVELS = [
+  {
+    id: 1,
+    name: "The Shadow Forest",
+    subtitle: "Chapter I",
+    topic: "Present Perfect Continuous",
+    type: "ordering",
+    difficulty: "Novice",
+    difficultyColor: "#4ade80",
+    villain: "Goblin Shaman",
+    villainTitle: "Lord of the Mushrooms",
+    accentColor: "#4ade80",
+    glowColor: "rgba(74,222,128,0.4)",
+    bgFrom: "#0f2d1a",
+    bgTo: "#1a4a2e",
+    terrain: "forest",
+    villainEmoji: "👺",
+  },
+  {
+    id: 2,
+    name: "The Ice Cavern",
+    subtitle: "Chapter II",
+    topic: "Idioms",
+    type: "mcq",
+    difficulty: "Apprentice",
+    difficultyColor: "#60a5fa",
+    villain: "Permafrost Witch",
+    villainTitle: "Queen of Eternal Winter",
+    accentColor: "#60a5fa",
+    glowColor: "rgba(96,165,250,0.4)",
+    bgFrom: "#0a1628",
+    bgTo: "#0d2545",
+    terrain: "ice",
+    villainEmoji: "🧊",
+  },
+  {
+    id: 3,
+    name: "The Lava Fortress",
+    subtitle: "Chapter III",
+    topic: "For and Since",
+    type: "forSince",
+    difficulty: "Sorcerer",
+    difficultyColor: "#fb923c",
+    villain: "Ignaros the Devastating",
+    villainTitle: "Demon of the Eternal Magma",
+    accentColor: "#fb923c",
+    glowColor: "rgba(251,146,60,0.4)",
+    bgFrom: "#2d0a00",
+    bgTo: "#4a1200",
+    terrain: "lava",
+    villainEmoji: "😈",
+  },
+  {
+    id: 4,
+    name: "The Dark Tower",
+    subtitle: "Final Chapter",
+    topic: "Academic Vocabulary",
+    type: "matching",
+    difficulty: "Archmage",
+    difficultyColor: "#c084fc",
+    villain: "Morthadeus the Eternal",
+    villainTitle: "Supreme Lord of Shadows",
+    accentColor: "#c084fc",
+    glowColor: "rgba(192,132,252,0.4)",
+    bgFrom: "#1a0a2e",
+    bgTo: "#2d0d4e",
+    terrain: "dark",
+    villainEmoji: "💀",
+  },
+];
+
+// ── Level 1: Sentence Ordering ───────────────────────────────
+export const LEVEL1_SENTENCES = [
+  {
+    words: ["She", "has", "been", "studying", "English", "for", "three", "years."],
+    hint: "Present Perfect Continuous with 'for'",
+  },
+  {
+    words: ["They", "have", "been", "living", "abroad", "since", "last", "summer."],
+    hint: "Present Perfect Continuous with 'since'",
+  },
+  {
+    words: ["He", "has", "been", "waiting", "for", "his", "scholarship", "results."],
+    hint: "Subject + has + been + verb-ing + complement",
+  },
+  {
+    words: ["We", "have", "been", "attending", "English", "classes", "every", "morning."],
+    hint: "Subject + have + been + verb-ing + complement",
+  },
+];
+
+// ── Level 2: Idioms MCQ ──────────────────────────────────────
+export const LEVEL2_QUESTIONS = [
+  {
+    scenario: "Sara just started working at an international company.",
+    idiom: "Learn the ropes",
+    question: "Sara needs to ___ before she can work independently.",
+    options: [
+      "tie all the ropes",
+      "learn the ropes",
+      "know by heart",
+      "go homesick",
+    ],
+    correct: 1,
+    explanation: '"Learn the ropes" means to learn the basics of something new.',
+  },
+  {
+    scenario: "Tom moved to a new country for his exchange program.",
+    idiom: "Homesick",
+    question: "After a few weeks abroad, Tom felt very ___.",
+    options: [
+      "foreign",
+      "prestigious",
+      "homesick",
+      "qualified",
+    ],
+    correct: 2,
+    explanation: '"Homesick" means feeling sad because you miss your home and family.',
+  },
+  {
+    scenario: "Maria studied the vocabulary list every day for a month.",
+    idiom: "Know by heart",
+    question: "After so much practice, she could ___.",
+    options: [
+      "attend every word",
+      "socialize every word",
+      "enhance every word",
+      "know every word by heart",
+    ],
+    correct: 3,
+    explanation: '"Know by heart" means to memorize something completely.',
+  },
+];
+
+// ── Level 3: For / Since ─────────────────────────────────────
+export const LEVEL3_ITEMS = [
+  { sentence: "I have been studying English ___ two years.", answer: "for", context: "duration of time" },
+  { sentence: "She has lived abroad ___ January.", answer: "since", context: "a point in time" },
+  { sentence: "They haven't spoken to each other ___ a long time.", answer: "for", context: "duration of time" },
+  { sentence: "He has been working here ___ he graduated from university.", answer: "since", context: "a past event" },
+  { sentence: "We have been waiting ___ three hours.", answer: "for", context: "duration of time" },
+  { sentence: "I have known her ___ we were children.", answer: "since", context: "a point in time" },
+  { sentence: "The wizard has been casting spells ___ dawn.", answer: "since", context: "a point in time" },
+  { sentence: "She has been practicing the spell ___ several weeks.", answer: "for", context: "duration of time" },
+];
+
+// ── Level 4: Vocabulary Matching ─────────────────────────────
+export const LEVEL4_PAIRS = [
+  { word: "Attend", definition: "To be present at an event, meeting, or class" },
+  { word: "Exchange", definition: "A program where students study in another country temporarily" },
+  { word: "Scholarship", definition: "Money awarded to a student to support their education" },
+  { word: "Abroad", definition: "In or to a foreign country" },
+  { word: "Foreign", definition: "Belonging or connected to a country that is not your own" },
+  { word: "Accommodation", definition: "A place provided for someone to live or stay" },
+  { word: "Belief", definition: "An acceptance that something exists or is true" },
+  { word: "Search", definition: "To try to find something by looking or otherwise seeking carefully" },
+  { word: "Budget", definition: "An estimate of income and expenditure for a set period of time" },
+  { word: "Misleading", definition: "Giving the wrong idea or impression" },
+  { word: "Socialize", definition: "To spend time with other people in a friendly way" },
+  { word: "Enhance", definition: "To improve the quality or value of something" },
+  { word: "Prestige", definition: "Respect and admiration received from others" },
+  { word: "Qualification", definition: "A skill or achievement that makes you suitable for a role" },
+  { word: "Barrier", definition: "Something that prevents communication or progress" },
+  { word: "Cultural Shock", definition: "Disorientation felt when experiencing a very different culture" },
+  { word: "Paper work", definition: "Routine work involving written documents such as forms or records" },
+];

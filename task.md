@@ -1,0 +1,8 @@
+- [ ] Configurar Tailwind CSS en `index.css`
+- [ ] Crear `src/data.js` con la información de todos los niveles
+- [ ] Integrar el diseño de `LevelSelect.jsx` y adaptarlo al menú
+- [ ] Actualizar el diseño de `Level1.jsx` manteniendo la mecánica de coordenadas
+- [ ] Actualizar el diseño de `Level2.jsx` manteniendo la mecánica de coordenadas
+- [ ] Actualizar el diseño de `Level3.jsx` manteniendo la mecánica de coordenadas
+- [ ] Actualizar el diseño de `Level4.jsx` manteniendo la mecánica de coordenadas
+- [ ] Integrar el selector y los estados en `App.jsx`
