@@ -120,7 +120,7 @@ function IceWitch({
   );
 }
 
-export default function Level2({ accentColor, glowColor, onComplete }) {
+export default function Level2({ accentColor, glowColor, onComplete, onMistake }) {
   const [qIdx, setQIdx] = useState(0);
   const [selected, setSelected] = useState(null);
   const [mistakes, setMistakes] = useState(0);

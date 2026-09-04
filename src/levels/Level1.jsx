@@ -192,7 +192,8 @@ function ForestBeast({
 const Level1 = ({ 
   accentColor, 
   glowColor, 
-  onComplete
+  onComplete,
+  onMistake
 }) => {
   const [sentenceIdx, setSentenceIdx] = useState(0);
   const [pool, setPool] = useState([]);
