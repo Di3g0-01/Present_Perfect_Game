@@ -178,6 +178,7 @@ export default function Level2({ accentColor, glowColor, onComplete }) {
       setMagoAnim("release");
       setSparkyMessage("Not quite... try again!");
       setMistakes((m) => m + 1);
+      if (onMistake) onMistake();
       await sleep(1400);
       setMagoAnim("walk");
       setSparkyMessage("");

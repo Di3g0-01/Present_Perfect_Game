@@ -38,14 +38,22 @@ const ANIMS = {
     { legL: 0, legR: 0, armL:-1, armR:-1, lean: 0, staffX:12, staffY:4, glow:"#ff8844" },
     { legL: 0, legR: 0, armL: 0, armR: 0, lean: 0, staffX:12, staffY:6, glow:"#ff6633" },
   ],
+  die: [
+    { legL: 0, legR: 0, armL:-1, armR:-1, lean: 0, staffX:12, staffY:6, glow:"#ff0000" },
+    { legL:-1, legR: 1, armL:-2, armR:-2, lean: 1, staffX:14, staffY:8, glow:"#aa0000" },
+    { legL:-2, legR: 2, armL:-3, armR:-3, lean: 2, staffX:16, staffY:12, glow:"#550000" },
+    { legL:-3, legR: 3, armL:-4, armR:-4, lean: 3, staffX:18, staffY:16, glow:null },
+  ],
 };
 
 function dot(ctx, x, y, color, size = 1) {
+  if (!color) return;
   ctx.fillStyle = color;
   ctx.fillRect(Math.floor(x), Math.floor(y), size, size);
 }
 
 function line(ctx, x1, y1, x2, y2, color) {
+  if (!color) return;
   const dx = x2 - x1, dy = y2 - y1;
   const steps = Math.max(Math.abs(dx), Math.abs(dy));
   for (let i = 0; i <= steps; i++) {
@@ -95,7 +103,7 @@ function drawFrame(ctx, f, ox = 0, oy = 0) {
   dot(ctx, sx+1, sy-1, glow, 1);
 }
 
-export default function MagoCanvas({ animation = "walk", scale = 5, fps = 10, className }) {
+export default function MagoCanvas({ animation = "walk", scale = 5, fps = 10, loop = true, className }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -120,7 +128,18 @@ export default function MagoCanvas({ animation = "walk", scale = 5, fps = 10, cl
 
     render();
     const id = setInterval(() => {
-      frameIdx = (frameIdx + 1) % ANIMS[animation].length;
+      if (!running) return;
+      const nextFrame = frameIdx + 1;
+      if (nextFrame >= ANIMS[animation].length) {
+        if (loop) {
+          frameIdx = 0;
+        } else {
+          running = false;
+          clearInterval(id);
+        }
+      } else {
+        frameIdx = nextFrame;
+      }
       render();
     }, 1000 / fps);
 

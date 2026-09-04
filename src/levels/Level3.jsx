@@ -26,7 +26,7 @@ function FireDemon({
               transition: "all 0.3s ease",
             }}
           >
-            {i <= lives ? "🔥" : "🩶"}
+            {i <= lives ? "O" : "X"}
           </div>
         ))}
       </div>
@@ -162,9 +162,9 @@ function FireDemon({
           {/* Hit sparks */}
           {isHit && (
             <>
-              <text x="15" y="55" fontSize="16" style={{ animation: "floatStar 0.4s ease" }}>🔥</text>
-              <text x="110" y="50" fontSize="16" style={{ animation: "floatStar 0.4s ease 0.1s" }}>💫</text>
-              <text x="65" y="15" fontSize="14" style={{ animation: "floatStar 0.4s ease 0.05s" }}>✨</text>
+              <text x="15" y="55" fontSize="16" style={{ animation: "floatStar 0.4s ease" }}>*</text>
+              <text x="110" y="50" fontSize="16" style={{ animation: "floatStar 0.4s ease 0.1s" }}>*</text>
+              <text x="65" y="15" fontSize="14" style={{ animation: "floatStar 0.4s ease 0.05s" }}>*</text>
             </>
           )}
         </svg>
@@ -172,7 +172,7 @@ function FireDemon({
 
       <div className="mt-1 text-center">
         <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#fb923c", fontFamily: "'Cinzel', serif" }}>
-          {isDying ? "Defeated!" : lives === 1 ? "⚠ Enraged!" : "Ignaros"}
+          {isDying ? "Defeated!" : lives === 1 ? "! Enraged!" : "Ignaros"}
         </p>
         <p className="text-xs italic" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Crimson Text', serif" }}>
           {isDying ? "The magma cools..." : "Demon of Eternal Magma"}
@@ -182,7 +182,7 @@ function FireDemon({
   );
 }
 
-export default function Level3({ accentColor, glowColor, onComplete }) {
+export default function Level3({ accentColor, glowColor, onComplete, onMistake }) {
   const [idx, setIdx] = useState(0);
   const [chosen, setChosen] = useState(null);
   const [mistakes, setMistakes] = useState(0);
@@ -203,42 +203,43 @@ export default function Level3({ accentColor, glowColor, onComplete }) {
   const [before, after] = item.sentence.split("___");
   const isCorrect = chosen === item.answer;
 
-  async function pick(choice) {
+  async function pick(val) {
     if (chosen !== null || isSparkyControlled) return;
-    setChosen(choice);
-    setIsSparkyControlled(true);
+    setChosen(val);
+    if (val === item.answer) {
+      setMagoAnim("cast");
+      setSparkyMessage("Correct!");
+      setIsSparkyControlled(true);
 
-    if (choice === item.answer) {
-      setMagoAnim("grab");
-      await sleep(300);
-      setSparkyMessage(`Correct! Use "for" with a duration, "since" with a point in time.`);
-      const newCount = correctCount + 1;
-      setCorrectCount(newCount);
+      const newCorrect = correctCount + 1;
+      setCorrectCount(newCorrect);
 
-      // Every 2 correct answers = 1 life lost
-      if (newCount % 2 === 0) {
-        const newLives = beastLives - 1;
+      if (newCorrect % 2 === 0) {
         setBeastHit(true);
-        await sleep(400);
-        setBeastHit(false);
+        const newLives = beastLives - 1;
+        setBeastLives(newLives);
 
         if (newLives <= 0) {
-          setBeastLives(0);
-          await sleep(600);
           setBeastDying(true);
+          await sleep(1300);
+          setBeastDead(true);
         } else {
-          setBeastLives(newLives);
+          await sleep(350);
+          setBeastHit(false);
         }
       }
-      await sleep(1200);
+
+      await sleep(1000);
       setMagoAnim("walk");
+      setSparkyMessage("");
       setIsSparkyControlled(false);
     } else {
-      setMagoAnim("release");
-      setSparkyMessage(`The answer is "${item.answer}". "For" = duration, "since" = point in time.`);
       setMistakes((m) => m + 1);
-      await sleep(2000);
-      setMagoAnim("walk");
+      setSparkyMessage("Oops! Try again.");
+      setIsSparkyControlled(true);
+      if (onMistake) onMistake();
+      
+      await sleep(1500);
       setSparkyMessage("");
       setChosen(null);
       setIsSparkyControlled(false);
@@ -248,7 +249,6 @@ export default function Level3({ accentColor, glowColor, onComplete }) {
   function next() {
     if (isLast) {
       setTimeout(() => {
-        setBeastDead(true);
         const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
         onComplete(stars);
       }, beastDying ? 1400 : 200);
@@ -415,7 +415,7 @@ export default function Level3({ accentColor, glowColor, onComplete }) {
             boxShadow: `0 0 20px ${glowColor}`,
           }}
         >
-          {isLast ? "⚡ Finish" : "⚡ Next →"}
+          {isLast ? "Finish" : "Next →"}
         </button>
       )}
     </div>

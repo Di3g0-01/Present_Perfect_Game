@@ -24,11 +24,28 @@ export default function App() {
   const [levelIdx, setLevelIdx] = useState(0);
   const [completedLevels, setCompletedLevels] = useState({});
   const [lastStars, setLastStars] = useState(0);
+  const [wizardLives, setWizardLives] = useState(3);
 
   const level = LEVELS[levelIdx];
 
   function startLevel(idx) {
     setLevelIdx(idx);
+    setWizardLives(3);
+    setScreen("game");
+  }
+
+  function handleMistake() {
+    setWizardLives((prev) => {
+      const newLives = prev - 1;
+      if (newLives <= 0) {
+        setTimeout(() => setScreen("gameover"), 500);
+      }
+      return newLives;
+    });
+  }
+
+  function retryLevel() {
+    setWizardLives(3);
     setScreen("game");
   }
 
@@ -45,6 +62,7 @@ export default function App() {
     const nextIdx = levelIdx + 1;
     if (nextIdx < LEVELS.length) {
       setLevelIdx(nextIdx);
+      setWizardLives(3);
       setScreen("game");
     } else {
       setScreen("select");
@@ -70,7 +88,11 @@ export default function App() {
       </button>
       <div className="text-center">
         <div className="text-xs tracking-widest uppercase" style={{ color: level.accentColor, fontFamily: "'Cinzel', serif" }}>{level.subtitle}</div>
-        <div className="text-sm font-bold" style={{ color: "#f9fafb", fontFamily: "'Cinzel', serif" }}>{level.topic}</div>
+        <div className="text-sm font-bold flex justify-center gap-1 mt-1" style={{ color: "#f9fafb" }}>
+          {[...Array(3)].map((_, i) => (
+            <span key={i} style={{ opacity: i < wizardLives ? 1 : 0.3, color: i < wizardLives ? "#ef4444" : "#9ca3af" }}>❤️</span>
+          ))}
+        </div>
       </div>
       <div className="text-xs px-3 py-1.5 rounded-lg" style={{ background: `${level.accentColor}22`, color: level.accentColor, border: `1px solid ${level.accentColor}44`, fontFamily: "'Cinzel', serif" }}>
         {level.difficulty}
@@ -88,7 +110,7 @@ export default function App() {
         className="w-full max-w-sm rounded-2xl p-8 flex flex-col items-center gap-6 border"
         style={{ background: "rgba(255,255,255,.04)", borderColor: `${level.accentColor}44`, boxShadow: `0 0 40px ${level.glowColor}` }}
       >
-        <div className="text-5xl">{lastStars === 3 ? "🏆" : lastStars === 2 ? "🌟" : "⚔️"}</div>
+        <div className="text-5xl"></div>
 
         <div className="text-center">
           <h2 className="text-2xl font-black mb-1" style={{ color: "#f9fafb", fontFamily: "'Cinzel Decorative', serif" }}>
@@ -117,7 +139,7 @@ export default function App() {
                 boxShadow: `0 0 20px ${level.glowColor}`,
               }}
             >
-              ⚡ Next Level →
+              Next Level →
             </button>
           )}
           <button
@@ -131,6 +153,54 @@ export default function App() {
       </div>
 
       <style>{`@keyframes floatMago{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`}</style>
+    </div>
+  );
+
+  // ── Game Over Screen ─────────────────────────────────────────
+  const GameOverScreen = () => (
+    <div
+      className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-8"
+      style={{ background: `radial-gradient(ellipse at center, #3f0000 0%, #000000 100%)` }}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl p-8 flex flex-col items-center gap-6 border"
+        style={{ background: "rgba(255,255,255,.04)", borderColor: `#ef444444`, boxShadow: `0 0 40px #ef444488` }}
+      >
+        <div className="text-center">
+          <h2 className="text-2xl font-black mb-1" style={{ color: "#ef4444", fontFamily: "'Cinzel Decorative', serif" }}>
+            You Perished!
+          </h2>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,.5)", fontFamily: "'Crimson Text', serif" }}>
+            {level.villain} overpowered you.
+          </p>
+        </div>
+
+        <div>
+          <MagoCanvas animation="die" scale={6} fps={5} loop={false} />
+        </div>
+
+        <div className="flex flex-col gap-3 w-full mt-4">
+          <button
+            onClick={retryLevel}
+            className="w-full py-3 rounded-xl font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-105"
+            style={{
+              background: `linear-gradient(135deg, #ef4444, #7f1d1d)`,
+              color: "#fff",
+              fontFamily: "'Cinzel', serif",
+              boxShadow: `0 0 20px #ef444488`,
+            }}
+          >
+            Retry Level
+          </button>
+          <button
+            onClick={() => setScreen("select")}
+            className="w-full py-3 rounded-xl font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-105"
+            style={{ background: "rgba(255,255,255,.08)", color: "#9ca3af", border: "1px solid rgba(255,255,255,.15)", fontFamily: "'Cinzel', serif" }}
+          >
+            ← Level Select
+          </button>
+        </div>
+      </div>
     </div>
   );
 
@@ -152,10 +222,10 @@ export default function App() {
             </p>
           </div>
 
-          {levelIdx === 0 && <Level1 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} />}
-          {levelIdx === 1 && <Level2 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} />}
-          {levelIdx === 2 && <Level3 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} />}
-          {levelIdx === 3 && <Level4 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} />}
+          {levelIdx === 0 && <Level1 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} onMistake={handleMistake} key={wizardLives} />}
+          {levelIdx === 1 && <Level2 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} onMistake={handleMistake} key={wizardLives} />}
+          {levelIdx === 2 && <Level3 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} onMistake={handleMistake} key={wizardLives} />}
+          {levelIdx === 3 && <Level4 accentColor={level.accentColor} glowColor={level.glowColor} onComplete={handleComplete} onMistake={handleMistake} key={wizardLives} />}
         </div>
       </div>
     </div>
@@ -163,5 +233,6 @@ export default function App() {
 
   if (screen === "select") return <LevelSelect completedLevels={completedLevels} onSelectLevel={startLevel} />;
   if (screen === "results") return <ResultsScreen />;
+  if (screen === "gameover") return <GameOverScreen />;
   return <GameWrapper />;
 }

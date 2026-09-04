@@ -14,7 +14,7 @@ export const LEVELS = [
     bgFrom: "#0f2d1a",
     bgTo: "#1a4a2e",
     terrain: "forest",
-    villainEmoji: "👺",
+    villainEmoji: "",
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ export const LEVELS = [
     bgFrom: "#0a1628",
     bgTo: "#0d2545",
     terrain: "ice",
-    villainEmoji: "🧊",
+    villainEmoji: "",
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ export const LEVELS = [
     bgFrom: "#2d0a00",
     bgTo: "#4a1200",
     terrain: "lava",
-    villainEmoji: "😈",
+    villainEmoji: "",
   },
   {
     id: 4,
@@ -65,7 +65,7 @@ export const LEVELS = [
     bgFrom: "#1a0a2e",
     bgTo: "#2d0d4e",
     terrain: "dark",
-    villainEmoji: "💀",
+    villainEmoji: "",
   },
 ];
 

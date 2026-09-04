@@ -30,7 +30,7 @@ function DarkSorcerer({
               transition: "all 0.3s ease",
             }}
           >
-            {i <= lives ? "💜" : "🩶"}
+            {i <= lives ? "O" : "X"}
           </div>
         ))}
       </div>
@@ -173,9 +173,9 @@ function DarkSorcerer({
           {/* Hit particles */}
           {isHit && (
             <>
-              <text x="18" y="55" fontSize="15" style={{ animation: "floatStar 0.4s ease" }}>💜</text>
-              <text x="112" y="48" fontSize="15" style={{ animation: "floatStar 0.4s ease 0.1s" }}>✨</text>
-              <text x="66" y="16" fontSize="13" style={{ animation: "floatStar 0.4s ease 0.05s" }}>💫</text>
+              <text x="18" y="55" fontSize="15" style={{ animation: "floatStar 0.4s ease" }}>*</text>
+              <text x="112" y="48" fontSize="15" style={{ animation: "floatStar 0.4s ease 0.1s" }}>*</text>
+              <text x="66" y="16" fontSize="13" style={{ animation: "floatStar 0.4s ease 0.05s" }}>*</text>
             </>
           )}
         </svg>
@@ -183,7 +183,7 @@ function DarkSorcerer({
 
       <div className="mt-1 text-center">
         <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#c084fc", fontFamily: "'Cinzel', serif" }}>
-          {isDying ? "Defeated!" : lives === 1 ? "⚠ His power surges!" : "Morthadeus"}
+          {isDying ? "Defeated!" : lives === 1 ? "! His power surges!" : "Morthadeus"}
         </p>
         <p className="text-xs italic" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Crimson Text', serif" }}>
           {isDying ? "Darkness retreats..." : "Supreme Lord of Shadows"}
@@ -193,7 +193,7 @@ function DarkSorcerer({
   );
 }
 
-export default function Level4({ accentColor, glowColor, onComplete }) {
+export default function Level4({ accentColor, glowColor, onComplete, onMistake }) {
   const [shuffledPairs, setShuffledPairs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState(new Set());
@@ -249,6 +249,7 @@ export default function Level4({ accentColor, glowColor, onComplete }) {
       setMagoAnim("release");
       setSparkyMessage("Wrong!");
       setIsSparkyControlled(true);
+      if (onMistake) onMistake();
       await sleep(800);
       setMagoAnim("walk");
       setSparkyMessage("");

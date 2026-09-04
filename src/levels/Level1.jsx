@@ -36,7 +36,7 @@ function ForestBeast({
               transition: "all 0.3s ease",
             }}
           >
-            {i <= lives ? "❤️" : "🖤"}
+            {i <= lives ? "O" : "X"}
           </div>
         ))}
       </div>
@@ -150,9 +150,9 @@ function ForestBeast({
           {/* Hit effect stars */}
           {isHit && (
             <g style={{ animation: "spin 0.4s linear" }}>
-              {["⭐", "💫", "✨"].map((_, i) => (
+              {["*", "*", "*"].map((_, i) => (
                 <text key={i} x={50 + i * 30} y={20} fontSize="16" textAnchor="middle" style={{ animation: `floatStar 0.4s ease ${i * 0.1}s` }}>
-                  💫
+                  *
                 </text>
               ))}
             </g>
@@ -179,7 +179,7 @@ function ForestBeast({
       {/* Beast name */}
       <div className="mt-2 text-center">
         <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#4ade80", fontFamily: "'Cinzel', serif" }}>
-          {isDying ? "Defeated!" : lives <= 1 ? "⚠ Enraged!" : "Goblin Shaman"}
+          {isDying ? "Defeated!" : lives <= 1 ? "! Enraged!" : "Goblin Shaman"}
         </p>
         <p className="text-xs italic" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Crimson Text', serif" }}>
           {isDying ? "The forest is free..." : "Lord of the Mushrooms"}
@@ -304,6 +304,7 @@ const Level1 = ({
     } else {
       setFeedback("wrong");
       setMistakes(m => m + 1);
+      if (onMistake) onMistake();
       setMagoAnim('release');
       setSparkyMessage("Not quite... try again!");
       setShake(true);
@@ -524,13 +525,13 @@ const Level1 = ({
 
       {feedback === "correct" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-4 py-2 rounded-full border border-green-400 bg-green-400/15">
-          <span className="text-lg">✨</span>
+          <span className="text-lg">*</span>
           <span className="text-sm font-semibold text-green-400">Correct! Well done!</span>
         </motion.div>
       )}
       {feedback === "wrong" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-400 bg-red-400/15">
-          <span className="text-lg">💫</span>
+          <span className="text-lg">*</span>
           <span className="text-sm font-semibold text-red-400">Try again!</span>
         </motion.div>
       )}
@@ -545,7 +546,7 @@ const Level1 = ({
           boxShadow: `0 0 20px ${glowColor}`,
         }}
       >
-        {isAnimating ? 'Checking...' : '⚡ Check Answer'}
+        {isAnimating ? 'Checking...' : 'Check Answer'}
       </button>
     </div>
   );

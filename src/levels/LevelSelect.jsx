@@ -182,7 +182,7 @@ export default function LevelSelect({ completedLevels, onSelectLevel }) {
             const Villain = VILLAIN_SVGS[i];
             const levelStars = completedLevels[level.id] ?? 0;
             const completed = level.id in completedLevels;
-            const locked = false; // i > 0 && !(LEVELS[i - 1].id in completedLevels) && !completed;
+            const locked = i > 0 && completedLevels[LEVELS[i - 1].id] === undefined && !completed;
             const isHovered = hoveredIdx === i;
 
             return (
@@ -203,7 +203,7 @@ export default function LevelSelect({ completedLevels, onSelectLevel }) {
               >
                 {locked && (
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center" style={{ background: "rgba(0,0,0,.65)", backdropFilter: "blur(2px)" }}>
-                    <div className="text-4xl mb-2">🔒</div>
+                    <div className="text-4xl mb-2">X</div>
                     <p className="text-xs tracking-widest uppercase font-semibold" style={{ color: "#6b7280", fontFamily: "'Cinzel', serif" }}>Locked</p>
                   </div>
                 )}

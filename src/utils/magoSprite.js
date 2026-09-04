@@ -43,6 +43,12 @@ export const MAGO_ANIMATIONS = {
     { legL: 0, legR: 0, armL:-1, armR:-1, lean: 0, staffX:12, staffY:4, glow:'#ff8844' },
     { legL: 0, legR: 0, armL: 0, armR: 0, lean: 0, staffX:12, staffY:6, glow:'#ff6633' },
   ],
+  die: [
+    { legL: 0, legR: 0, armL:-1, armR:-1, lean: 0, staffX:12, staffY:6, glow:'#ff0000' },
+    { legL:-1, legR: 1, armL:-2, armR:-2, lean: 1, staffX:14, staffY:8, glow:'#aa0000' },
+    { legL:-2, legR: 2, armL:-3, armR:-3, lean: 2, staffX:16, staffY:12, glow:'#550000' },
+    { legL:-3, legR: 3, armL:-4, armR:-4, lean: 3, staffX:18, staffY:16, glow:null },
+  ],
 };
 
 // ── Dibuja un pixel ──────────────────────────────────────────
