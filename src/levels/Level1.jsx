@@ -28,15 +28,15 @@ function ForestBeast({
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="transition-all duration-300"
             style={{
-              fontSize: "1.4rem",
-              filter: i <= lives ? "drop-shadow(0 0 6px #ef4444)" : "grayscale(1) opacity(0.3)",
-              transform: isHit && i === lives ? "scale(1.4)" : "scale(1)",
+              fontSize: "1.5rem",
+              filter: i <= lives ? "drop-shadow(0 0 8px #ef4444)" : "grayscale(1) opacity(0.3)",
+              transform: isHit && i === lives ? "scale(1.5)" : "scale(1)",
               transition: "all 0.3s ease",
+              lineHeight: 1,
             }}
           >
-            {i <= lives ? "O" : "X"}
+            {i <= lives ? "❤️" : "🖤"}
           </div>
         ))}
       </div>

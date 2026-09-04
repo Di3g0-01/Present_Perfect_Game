@@ -24,13 +24,14 @@ function DarkSorcerer({
           <div
             key={i}
             style={{
-              fontSize: "1.2rem",
-              filter: i <= lives ? "drop-shadow(0 0 6px #a855f7)" : "grayscale(1) opacity(0.2)",
+              fontSize: "1.5rem",
+              filter: i <= lives ? "drop-shadow(0 0 8px #a855f7)" : "grayscale(1) opacity(0.2)",
               transform: isHit && i === lives ? "scale(1.5)" : "scale(1)",
               transition: "all 0.3s ease",
+              lineHeight: 1,
             }}
           >
-            {i <= lives ? "O" : "X"}
+            {i <= lives ? "❤️" : "🖤"}
           </div>
         ))}
       </div>
@@ -249,13 +250,13 @@ export default function Level4({ accentColor, glowColor, onComplete, onMistake }
       setMagoAnim("release");
       setSparkyMessage("Wrong!");
       setIsSparkyControlled(true);
-      if (onMistake) onMistake();
       await sleep(800);
       setMagoAnim("walk");
       setSparkyMessage("");
       
       if (newMistakes >= maxMistakes) {
         // Failed the word
+        if (onMistake) onMistake();
         await handleWordComplete(false, newGuessed);
       } else {
         setIsSparkyControlled(false);
