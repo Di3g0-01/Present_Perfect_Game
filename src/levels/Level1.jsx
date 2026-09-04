@@ -529,26 +529,42 @@ const Level1 = ({
         </AnimatePresence>
       </div>
 
-      {feedback === "correct" && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center gap-3 px-6 py-3 rounded-full border-2 border-green-400 bg-green-400/20 shadow-lg"
-        >
-          <span className="text-2xl font-bold text-green-400">✓</span>
-          <span className="text-base font-bold text-green-400">Correct! Well done!</span>
-        </motion.div>
-      )}
-      {feedback === "wrong" && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center gap-3 px-6 py-3 rounded-full border-2 border-red-400 bg-red-400/20 shadow-lg"
-        >
-          <span className="text-2xl font-bold text-red-400">✗</span>
-          <span className="text-base font-bold text-red-400">Incorrect! Try again.</span>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {(feedback === "correct" || feedback === "wrong") && (
+          <motion.div
+            key={feedback}
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.7 }}
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+          >
+            <div
+              className="flex flex-col items-center gap-3 px-10 py-8 rounded-3xl shadow-2xl"
+              style={{
+                background: feedback === "correct"
+                  ? "rgba(20, 60, 20, 0.97)"
+                  : "rgba(60, 10, 10, 0.97)",
+                border: `3px solid ${feedback === "correct" ? "#4ade80" : "#ef4444"}`,
+                boxShadow: `0 0 60px ${feedback === "correct" ? "#4ade8066" : "#ef444466"}`,
+              }}
+            >
+              <span className="text-6xl">{feedback === "correct" ? "✓" : "✗"}</span>
+              <span
+                className="text-2xl font-black tracking-wide"
+                style={{
+                  color: feedback === "correct" ? "#4ade80" : "#ef4444",
+                  fontFamily: "'Cinzel', serif",
+                }}
+              >
+                {feedback === "correct" ? "Correct!" : "Incorrect!"}
+              </span>
+              <span className="text-sm text-gray-300">
+                {feedback === "correct" ? "Well done! Moving on..." : "Try again..."}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <button
         onClick={checkAnswer}

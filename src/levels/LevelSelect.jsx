@@ -182,7 +182,7 @@ export default function LevelSelect({ completedLevels, onSelectLevel }) {
             const Villain = VILLAIN_SVGS[i];
             const levelStars = completedLevels[level.id] ?? 0;
             const completed = level.id in completedLevels;
-            const locked = i > 0 && completedLevels[LEVELS[i - 1].id] === undefined && !completed;
+            const locked = false; // TESTING: all levels unlocked
             const isHovered = hoveredIdx === i;
 
             return (
