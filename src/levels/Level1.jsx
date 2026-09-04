@@ -284,6 +284,9 @@ const Level1 = ({
       await sleep(400);
       setBeastHit(false);
       
+      // Let the player clearly see "Correct!" before advancing
+      await sleep(1800);
+
       if (newLives <= 0) {
         setBeastLives(0);
         await sleep(600);
@@ -297,7 +300,8 @@ const Level1 = ({
         onComplete(stars);
       } else {
         setBeastLives(newLives);
-        await sleep(1000);
+        setFeedback("idle");
+        setSparkyMessage("");
         setIsSparkyControlled(false);
         setIsAnimating(false);
         setSentenceIdx(i => i + 1);
@@ -310,7 +314,8 @@ const Level1 = ({
       setSparkyMessage("Not quite... try again!");
       setShake(true);
       
-      await sleep(1400);
+      // Let the player clearly see "Incorrect!" before resetting
+      await sleep(2000);
       
       setShake(false);
       setFeedback("idle");
@@ -525,15 +530,23 @@ const Level1 = ({
       </div>
 
       {feedback === "correct" && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-4 py-2 rounded-full border border-green-400 bg-green-400/15">
-          <span className="text-lg">*</span>
-          <span className="text-sm font-semibold text-green-400">Correct! Well done!</span>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center gap-3 px-6 py-3 rounded-full border-2 border-green-400 bg-green-400/20 shadow-lg"
+        >
+          <span className="text-2xl font-bold text-green-400">✓</span>
+          <span className="text-base font-bold text-green-400">Correct! Well done!</span>
         </motion.div>
       )}
       {feedback === "wrong" && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-400 bg-red-400/15">
-          <span className="text-lg">*</span>
-          <span className="text-sm font-semibold text-red-400">Try again!</span>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center gap-3 px-6 py-3 rounded-full border-2 border-red-400 bg-red-400/20 shadow-lg"
+        >
+          <span className="text-2xl font-bold text-red-400">✗</span>
+          <span className="text-base font-bold text-red-400">Incorrect! Try again.</span>
         </motion.div>
       )}
 
